@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* These two global rules make box-sizing include the border and padding. */
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* This makes the ground elements of the page take up the entire viewport. */
+html, body, #root {
+  height: 100%
+}
