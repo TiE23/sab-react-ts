@@ -2,10 +2,10 @@ import { ColumnContainer, ColumnTitle } from "./styles"
 import { AddNewItem } from "./AddNewItem";
 import { FC } from "react";
 
-import { myLog } from './utils';
+import { myLog } from './utils/utils';
 
 type ColumnProps = {
-  text?: string,
+  text: string,
 // } & {
   children?: React.ReactNode,
 };
@@ -13,7 +13,7 @@ type ColumnProps = {
 export const Column: FC<ColumnProps> = (props: ColumnProps) => {
   return (
     <ColumnContainer>
-      <ColumnTitle>{props?.text ?? "Unknown Column"}</ColumnTitle>
+      <ColumnTitle>{props.text}</ColumnTitle>
       {props.children}
       <AddNewItem
         toggleButtonText="+ Add another task"

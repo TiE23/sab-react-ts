@@ -4,7 +4,7 @@ import { Card } from "./Card";
 import { Column } from "./Column";
 import { AppContainer } from "./styles";
 import { AddNewItem } from "./AddNewItem";
-import { myLog } from "./utils";
+import { myLog } from "./utils/utils";
 
 export const App = () => (
   <AppContainer>
@@ -15,9 +15,6 @@ export const App = () => (
       <Card text="Learn Typescript" />
     </Column>
     <Column text="Done">
-      <Card text="Begin to use static typing" />
-    </Column>
-    <Column>
       <Card text="Begin to use static typing" />
     </Column>
     <AddNewItem toggleButtonText="+ Add another list" onAdd={myLog} />
