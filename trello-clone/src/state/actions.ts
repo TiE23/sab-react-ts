@@ -6,6 +6,8 @@
   appear to contribute all that much.
 */
 
+import { DragItem } from "../DragItem";
+
 // Using unique "type" properties is a strategy called a "discriminated union".
 export type Action =
   | {
@@ -14,7 +16,15 @@ export type Action =
   }
   | {
     type: "ADD_TASK",
-    payload: {text: string, listId: string },
+    payload: {text: string, listId: string},
+  }
+  | {
+    type: "MOVE_LIST",
+    payload: {draggedId: string, hoverId: string},
+  }
+  | {
+    type: "SET_DRAGGED_ITEM",
+    payload: DragItem | null,
   };
 
 export const addList = (
@@ -33,4 +43,22 @@ export const addTask = (
     text,
     listId,
   },
+});
+
+export const moveList = (
+  draggedId: string,
+  hoverId: string,
+): Action => ({
+  type: "MOVE_LIST",
+  payload: {
+    draggedId,
+    hoverId,
+  },
+});
+
+export const setDraggedItem = (
+  draggedItem: DragItem | null,
+): Action => ({
+  type: "SET_DRAGGED_ITEM",
+  payload: draggedItem,
 });
