@@ -11,6 +11,7 @@ import { isHidden } from "./utils/isHidden";
 type ColumnProps = {
   text: string,
   id: string,
+  isPreview?: boolean,
 };
 
 // Do notice the naming here. Column.tsx is the parent of ColumnContainer.tsx.
@@ -51,7 +52,8 @@ export const Column = (props: ColumnProps) => {
   return (
     <ColumnContainer
       ref={ref}
-      isHidden={isHidden(draggedItem, "COLUMN", props.id)}
+      isPreview={props.isPreview}
+      isHidden={isHidden(draggedItem, "COLUMN", props.id, props.isPreview)}
     >
       <ColumnTitle>{props.text}</ColumnTitle>
       {tasks.map(task =>

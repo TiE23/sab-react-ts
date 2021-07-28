@@ -10,11 +10,47 @@ import styled from "styled-components";
 
 interface DragPreviewContainerProps {
   isHidden?: boolean,
+  isPreview?: boolean,
 };
 
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
-  opacity: ${props => (props.isHidden ? 0.3 : 1)};
+  transform: ${props => (props.isPreview ? "rotate(5deg)" : undefined)};
+  opacity: ${props => (props.isHidden ? 0 : 1)};
 `;
+
+export const CustomDragLayerContainer = styled.div`
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+`;
+// pointer-events: none -> will ignore all mouse events
+// z-index: 100 -> will be at the top
+
+type DragPreviewWrapperProps = {
+  position: {
+    x: number,
+    y: number,
+  },
+};
+
+// This is a special styled component where it is instead affecting the attributes
+// instead of simply the style. The thing is that this is necessary because
+// styled-components generates a new CSS class for each variation encountered.
+// To avoid this big performance overhead it will modify the component instead
+// of generating a new class.
+// https://styled-components.com/docs/api#attrs
+export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps>(
+  ({ position: { x, y } }) => ({
+    style: {
+      transform: `translate(${x}px, ${y}px)`,
+    },
+  })
+)<DragPreviewWrapperProps>``;
+
 
 export const AppContainer = styled.div`
   align-items: flex-start;

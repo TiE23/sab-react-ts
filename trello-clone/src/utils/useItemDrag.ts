@@ -2,7 +2,11 @@ import { useDrag } from "react-dnd";
 import { useAppState } from "../state/AppStateContext";
 import { DragItem } from "../DragItem";
 import { setDraggedItem } from "../state/actions";
+import { getEmptyImage } from "react-dnd-html5-backend";
+import { useEffect } from "react";
 
+
+// This isn't a component, this is our own kind of hook.
 export const useItemDrag = (item: DragItem) => {
   const { dispatch } = useAppState();
   /*
@@ -17,7 +21,7 @@ export const useItemDrag = (item: DragItem) => {
     The destructuring method of [, drag] is a fun way to grab and name a returned
     value what we want. :) No need for [_, drag] or anything like that!
   */
-  const [, drag] = useDrag({
+  const [, drag, preview] = useDrag({
     type: item.type,
     item: () => {
       dispatch(setDraggedItem(item)); // Updating state. This is extra.
@@ -25,6 +29,13 @@ export const useItemDrag = (item: DragItem) => {
     },
     end: () => dispatch(setDraggedItem(null)),  // Updating state.
   });
+
+  // Every time preview changes, we perform this update.
+  // The preview() function allows us to give a different component (element or
+  // node) to use as a drag preview (what's under your mouse as you drag).
+  useEffect(() => {
+    preview(getEmptyImage(), { captureDraggingState: true });
+  }, [preview]);
 
   return { drag };
 };
