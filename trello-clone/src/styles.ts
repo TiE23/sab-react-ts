@@ -8,6 +8,14 @@ import styled from "styled-components";
 //   boxShadow: "none",
 // };
 
+interface DragPreviewContainerProps {
+  isHidden?: boolean,
+};
+
+export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
+  opacity: ${props => (props.isHidden ? 0.3 : 1)};
+`;
+
 export const AppContainer = styled.div`
   align-items: flex-start;
   background-color: #3179ba;
@@ -18,7 +26,10 @@ export const AppContainer = styled.div`
   width: 100%;
 `;
 
-export const ColumnContainer = styled.div`
+// Wow! You extend a styled container by replacing the prop with a function call.
+// https://styled-components.com/docs/api
+// export const ColumnContainer = styled.div` // Before
+export const ColumnContainer = styled(DragPreviewContainer)`
   background-color: #ebecf0;
   width: 300px;
   min-height: 40px;
