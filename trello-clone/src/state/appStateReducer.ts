@@ -1,4 +1,5 @@
 import { Action } from "./actions";
+import { findItemIndexById } from "../utils/arrayUtils";
 import { nanoid } from "nanoid";  // Generates UUIDv4-like IDs.
 
 export type Task = {
@@ -16,18 +17,29 @@ export type AppState = {
   lists: List[],  // Difference from Flow: Not "Array<List>"!
 };
 
-export const appStateReducer = (state: AppState, action: Action): AppState => {
+// If we init the state we might return AppState, so, not just void return.
+export const appStateReducer = (draft: AppState, action: Action): AppState | void => {
   switch (action.type) {
+    // TS is smart enough to discriminate between "type" in this switch.
     case "ADD_LIST":
-      // Remember the general limitations of the spread operator for changes!
-      return {
-        ...state,
-        lists: [
-          ...state.lists,
-          { id: nanoid(), text: action.payload, tasks: []}, // New list here!
-        ],
-      };
+      // Instead of "state" we have "draft" to use with ImmerJS. That way we
+      // know it is mutable. ImmerJS is taking care of this for us!
+      draft.lists.push({
+        id: nanoid(),
+        text: action.payload,
+        tasks: [],
+      });
+      break;
+    case "ADD_TASK":
+      const { text, listId } = action.payload;
+      const targetListIndex = findItemIndexById(draft.lists, listId);
+
+      draft.lists[targetListIndex].tasks.push({
+        id: nanoid(),
+        text,
+      });
+      break;
     default:
-      return state;
+      break;
   }
 };

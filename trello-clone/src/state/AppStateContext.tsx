@@ -1,7 +1,8 @@
 // TS vs Flow: No need to import Types separate from functions.
-import { createContext, useReducer, useContext, Dispatch, FC } from "react";
+import { createContext, /*useReducer,*/ useContext, Dispatch, FC } from "react";
 import { Action } from "./actions";
 import { appStateReducer, AppState, List, Task } from "./appStateReducer";
+import { useImmerReducer } from "use-immer";
 
 type AppStateContextProps = {
   lists: List[],
@@ -16,7 +17,7 @@ const AppStateContext = createContext<AppStateContextProps>(
 );
 
 // Temporary hard-coded values.
-const appData = {
+const appData: AppState = {
   lists: [
     {
       id: "0",
@@ -38,7 +39,8 @@ const appData = {
 
 // Define our provider component as a FunctionComponent ("FC").
 export const AppStateProvider: FC = ({ children }) => {
-  const [state, dispatch] = useReducer(appStateReducer, appData);
+  // const [state, dispatch] = useReducer(appStateReducer, appData);
+  const [state, dispatch] = useImmerReducer(appStateReducer, appData);
   // const { lists } = appData;
   const { lists } = state;
 
