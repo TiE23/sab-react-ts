@@ -1,23 +1,12 @@
-import { createContext, useContext, FC } from "react";
-
-type Task = {
-  id: string,
-  text: string,
-};
-
-type List = {
-  id: string,
-  text: string,
-  tasks: Task[],
-};
-
-export type AppState = {
-  lists: List[],  // Difference from Flow: Not "Array<List>"!
-};
+// TS vs Flow: No need to import Types separate from functions.
+import { createContext, useReducer, useContext, Dispatch, FC } from "react";
+import { Action } from "./actions";
+import { appStateReducer, AppState, List, Task } from "./appStateReducer";
 
 type AppStateContextProps = {
   lists: List[],
   getTasksByListId(id: string): Task[],
+  dispatch: Dispatch<Action>,
 };
 
 // The default value is just {} - a default value is only used if we don't wrap
@@ -49,7 +38,9 @@ const appData = {
 
 // Define our provider component as a FunctionComponent ("FC").
 export const AppStateProvider: FC = ({ children }) => {
-  const { lists } = appData;
+  const [state, dispatch] = useReducer(appStateReducer, appData);
+  // const { lists } = appData;
+  const { lists } = state;
 
   const getTasksByListId = (id: string) => {
     return lists.find((list) => list.id === id)?.tasks || [];
@@ -57,8 +48,9 @@ export const AppStateProvider: FC = ({ children }) => {
 
   // Really basic wrapper component.
   return (
-    // The value is the prop that is accessible by all context consumers.
-    <AppStateContext.Provider value={{ lists, getTasksByListId }}>
+    // The "value" is the prop that is accessible by all context consumers.
+    // Remember, the "value" is locked to the ContextProps up above!
+    <AppStateContext.Provider value={{ lists, getTasksByListId, dispatch }}>
       {children}
     </AppStateContext.Provider>
   );
