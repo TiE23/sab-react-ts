@@ -47,6 +47,11 @@ export const Card = (props: CardProps) => {
           props.columnId,       // This card's column
         ),
       );
+
+      // Must update the current dragged item (a card) with its columnId, else
+      // moveTask() will crash because it cannot find the card in its new home
+      // (that we made in dispatch just above).
+      dispatch(setDraggedItem({ ...draggedItem, columnId: props.columnId }));
     },
   });
   const ref = useRef<HTMLDivElement>(null);

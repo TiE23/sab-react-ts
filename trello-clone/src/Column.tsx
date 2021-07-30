@@ -2,7 +2,7 @@ import { ColumnContainer, ColumnTitle } from "./styles"
 import { AddNewItem } from "./AddNewItem";
 import { useAppState } from "./state/AppStateContext";
 import { Card } from "./Card";
-import { moveList, addTask } from "./state/actions";
+import { moveList, addTask, moveTask, setDraggedItem } from "./state/actions";
 import { useRef } from "react";
 import { useItemDrag } from "./utils/useItemDrag";
 import { useDrop } from "react-dnd";
@@ -18,7 +18,6 @@ type ColumnProps = {
 export const Column = (props: ColumnProps) => {
   // This is us getting data (well, a function...) from AppState.
   const { draggedItem, getTasksByListId, dispatch } = useAppState();
-
   const tasks = getTasksByListId(props.id);
 
   // The concept of ref is kinda strange. But essentially the ref is going to
@@ -27,8 +26,9 @@ export const Column = (props: ColumnProps) => {
   // and magic will happen: It will set itself as current (see how we set the
   // type as HTMLDivElement?)
   const ref = useRef<HTMLDivElement>(null);
+
   const [, drop] = useDrop({
-    accept: "COLUMN", // The kind of items the drop will accept.
+    accept: ["COLUMN", "CARD"], // The kind of items the drop will accept.
     hover() { // Triggered whenever you move a item over it. Even if you can't drop!
       if (!draggedItem) {
         return; // State says there's nothing being dragged. So, don't do anything.
@@ -42,6 +42,26 @@ export const Column = (props: ColumnProps) => {
 
         // Okay, let's dispatch a move command!
         dispatch(moveList(draggedItem.id, props.id));
+      } else if (draggedItem.type === "CARD") { // Dragging Cards to empty Columns
+        if (draggedItem.columnId === props.id) {
+          return; // Cannot drag a card to its own column (only to other cards)
+        }
+        if (tasks.length) {
+          return; // Only allow card->column dragging when empty!
+        }
+
+        // Commits the drag as soon as it has happened.
+        dispatch(
+          moveTask(draggedItem.id, null, draggedItem.columnId, props.id),
+        );
+
+        // When you have committed a task drag (as we just did above) we need
+        // to update the state's dragged item with the current (this) column's
+        // ID so that draggedItem.columnId can be updated for moveTask() to work
+        // else it won't find it and crash the page immediately.
+        dispatch(
+          setDraggedItem({ ...draggedItem, columnId: props.id }),
+        );
       }
     }
   });
