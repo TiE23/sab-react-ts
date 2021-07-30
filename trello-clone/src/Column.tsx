@@ -44,7 +44,7 @@ export const Column = (props: ColumnProps) => {
         dispatch(moveList(draggedItem.id, props.id));
       }
     }
-  })
+  });
   const { drag } = useItemDrag({ type: "COLUMN", id: props.id, text: props.text});
 
   drag(drop(ref));  // Combined to support both drag and drop on this component!
@@ -57,7 +57,13 @@ export const Column = (props: ColumnProps) => {
     >
       <ColumnTitle>{props.text}</ColumnTitle>
       {tasks.map(task =>
-        <Card text={task.text} key={task.id} id={task.id} />
+        <Card
+          text={task.text}
+          key={task.id}
+          id={task.id}
+          columnId={props.id}
+          isPreview={props.isPreview}
+        />
       )}
       <AddNewItem
         toggleButtonText="+ Add another task"

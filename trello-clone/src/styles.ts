@@ -13,6 +13,7 @@ interface DragPreviewContainerProps {
   isPreview?: boolean,
 };
 
+// It's useful to see where this container style is used!
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
   transform: ${props => (props.isPreview ? "rotate(5deg)" : undefined)};
   opacity: ${props => (props.isHidden ? 0 : 1)};
@@ -80,7 +81,7 @@ export const ColumnTitle = styled.div`
   font-weight: bold;
 `;
 
-export const CardContainer = styled.div`
+export const CardContainer = styled(DragPreviewContainer)`
   background-color: #fff;
   cursor: pointer;
   margin-bottom: 0.5rem;

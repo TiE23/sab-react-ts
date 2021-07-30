@@ -23,6 +23,15 @@ export type Action =
     payload: {draggedId: string, hoverId: string},
   }
   | {
+    type: "MOVE_TASK",
+    payload: {
+      draggedItemId: string,
+      hoveredItemId: string | null, // Could be not hovering anywhere.
+      sourceColumnId: string,
+      targetColumnId: string,
+    },
+  }
+  | {
     type: "SET_DRAGGED_ITEM",
     payload: DragItem | null,
   };
@@ -53,6 +62,21 @@ export const moveList = (
   payload: {
     draggedId,
     hoverId,
+  },
+});
+
+export const moveTask = (
+  draggedItemId: string,
+  hoveredItemId: string | null, // Could be not hovering anywhere.
+  sourceColumnId: string,
+  targetColumnId: string,
+): Action => ({
+  type: "MOVE_TASK",
+  payload: {
+    draggedItemId,
+    hoveredItemId,
+    sourceColumnId,
+    targetColumnId,
   },
 });
 

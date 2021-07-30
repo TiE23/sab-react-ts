@@ -34,7 +34,8 @@ export const appStateReducer = (draft: AppState, action: Action): AppState | voi
         tasks: [],
       });
       break;
-    case "ADD_TASK":
+
+    case "ADD_TASK": {
       const { text, listId } = action.payload;
       const targetListIndex = findItemIndexById(draft.lists, listId);
 
@@ -43,15 +44,53 @@ export const appStateReducer = (draft: AppState, action: Action): AppState | voi
         text,
       });
       break;
-    case "MOVE_LIST":
+    }
+    case "MOVE_LIST": {
       const { draggedId, hoverId } = action.payload;
       const dragIndex = findItemIndexById(draft.lists, draggedId);
       const hoverIndex = findItemIndexById(draft.lists, hoverId);
       draft.lists = moveItem(draft.lists, dragIndex, hoverIndex);
       break;
-    case "SET_DRAGGED_ITEM":
+    }
+    case "SET_DRAGGED_ITEM": {
       draft.draggedItem = action.payload;
       break;
+    }
+    case "MOVE_TASK": {
+      const {
+        draggedItemId,
+        hoveredItemId,
+        sourceColumnId,
+        targetColumnId,
+      } = action.payload;
+
+      // First, find the source + target list (column).
+      const sourceListIndex = findItemIndexById(
+        draft.lists,
+        sourceColumnId,
+      );
+      const targetListIndex = findItemIndexById(
+        draft.lists,
+        targetColumnId,
+      );
+
+      // Using the same function, find the index of the source drag.
+      const dragIndex = findItemIndexById(
+        draft.lists[sourceListIndex].tasks,
+        draggedItemId,
+      );
+
+      const hoverIndex = hoveredItemId
+      ? findItemIndexById(
+        draft.lists[targetListIndex].tasks,
+        hoveredItemId,
+      ) : 0;  // It is possible to drag a card to an emtpy column, so, 0.
+
+      const item = draft.lists[sourceListIndex].tasks[dragIndex];
+      draft.lists[sourceListIndex].tasks.splice(dragIndex, 1); // Remove from
+      draft.lists[targetListIndex].tasks.splice(hoverIndex, 0, item); // Add to
+      break;
+    }
     default:
       break;
   }

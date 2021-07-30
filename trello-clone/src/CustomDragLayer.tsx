@@ -1,3 +1,9 @@
+/*
+  This is a tricky component that uses a div that takes up an entire page
+  (CustomDragLayerContainer) and then has a child component (DragPreviewWrapper)
+  magically fly around the screen depending on the X, Y coordinates gained from
+  dnd.
+*/
 import { useDragLayer } from "react-dnd";
 import { Column } from "./Column";
 import { CustomDragLayerContainer, DragPreviewWrapper } from "./styles";

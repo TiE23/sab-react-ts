@@ -6,7 +6,10 @@ import { getEmptyImage } from "react-dnd-html5-backend";
 import { useEffect } from "react";
 
 
-// This isn't a component, this is our own kind of hook.
+/*
+  This isn't a component, this is our own kind of hook. It is responsible for
+  updating the central App State with the data that makes up the dragged item.
+ */
 export const useItemDrag = (item: DragItem) => {
   const { dispatch } = useAppState();
   /*
