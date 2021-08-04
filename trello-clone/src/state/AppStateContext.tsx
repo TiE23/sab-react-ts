@@ -1,5 +1,6 @@
 // TS vs Flow: No need to import Types separate from functions.
-import { createContext, /*useReducer,*/ useContext, Dispatch, FC } from "react";
+import { createContext, useContext, useEffect, Dispatch, FC } from "react";
+import { save } from "../api";
 import { Action } from "./actions";
 import { appStateReducer, AppState, List, Task } from "./appStateReducer";
 import { DragItem } from "../DragItem";
@@ -34,7 +35,7 @@ const appData: AppState = {
     {
       id: "2",
       text: "Done",
-      tasks: [{ id: "c3", text: "Beging to use static typing" }],
+      tasks: [{ id: "c3", text: "Begining to use static typing" }],
     },
   ],
   draggedItem: null,
@@ -50,6 +51,12 @@ export const AppStateProvider: FC = ({ children }) => {
   const getTasksByListId = (id: string) => {
     return lists.find((list) => list.id === id)?.tasks || [];
   };
+
+  // Send state to the API every time there is a change!
+  // Yes, this happens... a lot. This shouldn't be a real thing but we're learning here!
+  useEffect(() => {
+    save(state);
+  }, [state]);
 
   // Really basic wrapper component.
   return (
