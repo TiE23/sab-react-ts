@@ -1,5 +1,7 @@
 import { useState, useEffect, ComponentType } from "react";
+import { load } from "./api";
 import { AppState } from "./state/appStateReducer";
+import { MessageDiv } from "./styles";
 
 // Type that represents the props we're injecting with this HOC.
 type InjectedProps = {
@@ -23,10 +25,38 @@ export function withInitialState<TProps>(
 
   // But we do a slight improvement and adopt "PropsWithoutInjected".
   return (props: PropsWithoutInjected<TProps>) => {
-    const [initialState, setInitialState] = useState < AppState>({
-      lists: [],
+    const [initialState, setInitialState] = useState <AppState>({
+      lists: [
+        {id: "aaa", text: "Init", tasks: []},
+      ],
       draggedItem: null,
     });
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<Error | undefined>();
+
+    useEffect(() => {
+      const fetchInitialState = async () => {
+        try {
+          const data = await load();
+          setInitialState(data);
+        } catch (e) {
+          setError(e);
+        }
+        setIsLoading(false);
+      };
+
+      fetchInitialState();
+    }, []);
+
+
+    if (isLoading) {
+      return <MessageDiv>Loading...</MessageDiv>;
+    }
+
+    if (error) {
+      return <MessageDiv type="ERROR">{error.message}</MessageDiv>;
+    }
+
     return (
       <WrappedComponent
         // {...props as TProps}  // This is important because TS isn't that smart!

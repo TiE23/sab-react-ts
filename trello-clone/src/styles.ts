@@ -138,3 +138,21 @@ export const NewItemInput = styled.input`
   padding: 0.5rem 1rem;
   width: 100%;
 `;
+
+type MessageDivProps = {
+  type?: "WARNING" | "ERROR",
+};
+
+export const MessageDiv = styled.div<MessageDivProps>`
+  color: ${
+    props => (
+      props.type === "ERROR" ? "#dc143c" :
+      props.type === "WARNING" ? "#ff8c00" :
+      "#000"
+    )
+  };
+  border-radius: 3px;
+  border: none;
+  padding: 0.5rem 1 rem;
+  background-color: #dbdbdb;
+`;
