@@ -1,6 +1,6 @@
 import React from "react"
 import { CheckoutList } from "./CheckoutList"
-import { useCart } from "../CartContext/CartContext"
+import { useCart } from "../CartContext/useCart"
 import { CheckoutForm } from "./CheckoutForm"
 
 export const Checkout = () => {

@@ -11,7 +11,7 @@ interface CartProviderProps {
 
 export const CartProvider = ({ children, useCartHook = useCart }: React.PropsWithChildren<CartProviderProps>) => {
   const value = useCartHook()
- 
+
   return (
     <CartContext.Provider
       value={value}

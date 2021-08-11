@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import cart from "./cart.svg"
-import { useCart } from "../../CartContext/useCart"
+import { useCartContext } from "../../CartContext"
 
 /**
  * Using the Pick<Type, Keys> TS utility type with ReturnType<Type> we
@@ -15,14 +15,14 @@ import { useCart } from "../../CartContext/useCart"
  */
 interface CartWidgetProps {
   // useCartHook?: typeof useCart;
-  useCartHook?: () => Pick<ReturnType<typeof useCart>, "products">;
+  useCartHook?: () => Pick<ReturnType<typeof useCartContext>, "products">;
 };
 
 /* Here we're defining a DEFAULT value (with the = sign!), the useCart we
  * imported. This allows us
  * to override the context - great for testing!
  */
-export const CartWidget = ({ useCartHook = useCart }: CartWidgetProps) => {
+export const CartWidget = ({ useCartHook = useCartContext }: CartWidgetProps) => {
   const { products } = useCartHook();
 
   return (
