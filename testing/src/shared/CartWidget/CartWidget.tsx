@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import cart from "./cart.svg"
-import { useCart } from "../../CartContext"
+import { useCart } from "../../CartContext/useCart"
 
 /**
  * Using the Pick<Type, Keys> TS utility type with ReturnType<Type> we

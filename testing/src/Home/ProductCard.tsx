@@ -1,5 +1,5 @@
 import React from "react"
-import { useCart } from "../CartContext"
+import { useCart } from "../CartContext/useCart"
 import { Product } from "../shared/types"
 
 export interface ProductCardProps {

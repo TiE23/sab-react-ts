@@ -1,6 +1,6 @@
 import React from "react"
 import { submitCheckout, CheckoutPayload } from "../utils/api"
-import { useCart } from "../CartContext/CartContext"
+import { useCart } from "../CartContext/useCart";
 import { FormField } from "./FormField"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
