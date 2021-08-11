@@ -1,9 +1,9 @@
-import React from "react"
-import { Product } from "../shared/types"
+import React from "react";
+import { Product } from "../shared/types";
 
 interface CheckoutListProps {
-  products: Product[]
-}
+  products: Product[];
+};
 
 export const CheckoutList = ({ products }: CheckoutListProps) => {
   return (
@@ -12,5 +12,5 @@ export const CheckoutList = ({ products }: CheckoutListProps) => {
         return <li key={product.name}>{product.name}</li>
       })}
     </ul>
-  )
+  );
 }

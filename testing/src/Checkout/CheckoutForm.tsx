@@ -36,7 +36,7 @@ export const CheckoutForm = ({
 
   const onSubmit = handleSubmit(async (data) => {
     const { orderId } = await submit({
-      products 
+      products
     })
     clearCart()
     window.location.assign(`/order/?orderId=${orderId}`)
@@ -62,10 +62,10 @@ export const CheckoutForm = ({
         normalize={(value) => {
           return (
             value
-              .replace(/\s/g, "")
-              .match(/.{1,4}/g)
-              ?.join(" ")
-              .substr(0, 19) || ""
+              .replace(/\s/g, "") // Erase all spaces
+              .match(/.{1,4}/g) // Regex match anything 1 to 4 chars long
+              ?.join(" ") // Join those matches with a space
+              .substr(0, 19) || ""  // Limit to 19 characters (16 dig + 3 spaces)
           )
         }}
         ref={register}
