@@ -1,7 +1,7 @@
 import React from "react"
 import { Product } from "../shared/types"
 
-interface CartItemProps {
+export interface CartItemProps {
   product: Product
   removeFromCart: (product: Product) => void
 }
@@ -14,7 +14,7 @@ export const CartItem = ({ product, removeFromCart }: CartItemProps) => {
         src={product.image}
         width="64px"
         height="64px"
-        alt="goblin"
+        alt={product.name}
       />
       <p>{product.name}</p>
       <p>{product.price} Zm</p>

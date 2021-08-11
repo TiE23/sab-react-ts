@@ -1,9 +1,46 @@
-import React from 'react'
+import { fireEvent } from "@testing-library/react";
+import React from "react";
+import { Product } from "../shared/types";
+
+import "../testHelpers";
+import { CartItem } from "./CartItem";
 
 describe("CartItem", () => {
-  it.todo("renders correctly")
+  const product: Product = {
+    name: "Product Foo",
+    price: 100,
+    image: "/image/source.png",
+  };
+
+  it("renders correctly", () => {
+    const { container, getByAltText } = renderWithRouter(() => (
+      <CartItem
+        product={product}
+        removeFromCart={() => {}}
+      />
+    ));
+
+    expect(container.innerHTML).toMatch("Product Foo");
+    expect(container.innerHTML).toMatch("100 Zm");
+    expect(getByAltText("Product Foo")).toHaveAttribute(
+      "src",
+      "/image/source.png",
+    );
+  });
 
   describe("on 'Remove item' click", () => {
-    it.todo("calls passed in function")
-  })
-})
+    it("calls passed-in function", () => {
+      const removeFromCartMock = jest.fn();
+
+      const { getByText } = renderWithRouter(() => (
+        <CartItem
+          product={product}
+          removeFromCart={removeFromCartMock}
+        />
+      ));
+
+      fireEvent.click(getByText("Remove"));
+      expect(removeFromCartMock).toBeCalledWith(product);
+    });
+  });
+});

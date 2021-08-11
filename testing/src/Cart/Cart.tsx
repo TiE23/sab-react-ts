@@ -1,12 +1,19 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import { useCart } from "../CartContext/CartContext"
-import { CartItem } from "./CartItem"
+import React from "react";
+import { Link } from "react-router-dom";
+import { useCart } from "../CartContext/CartContext";
+import { CartItem } from "./CartItem";
 
-export const Cart = () => {
-  const { products, removeFromCart, totalPrice } = useCart()
+interface CartProps {
+  useCartHook?: () => Pick<
+    ReturnType<typeof useCart>,
+    "products" | "removeFromCart" | "totalPrice"
+  >
+};
+
+export const Cart = ({ useCartHook = useCart }: CartProps) => {
+  const { products, removeFromCart, totalPrice } = useCartHook();
   if (!products.length) {
-    return <>Your cart is empty. <Link to="/">Back to main page.</Link></>
+    return <>Your cart is empty. <Link to="/">Back to main page.</Link></>;
   }
 
   return (
@@ -24,5 +31,5 @@ export const Cart = () => {
         </Link>
       </div>
     </section>
-  )
+  );
 }
