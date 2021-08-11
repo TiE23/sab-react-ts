@@ -4,8 +4,6 @@ import { fireEvent } from "@testing-library/react";
 import { CartItemProps } from "./CartItem";
 import { Product } from "../shared/types";
 
-import "../testHelpers";
-
 // Mocking the sub-component.
 jest.mock("./CartItem", () => ({
   CartItem: ({ product }: CartItemProps) => {

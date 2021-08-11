@@ -4,8 +4,6 @@ import { createMemoryHistory } from 'history';  // This is an extra library.
 import { render } from "@testing-library/react";
 import { Router } from "react-router-dom";
 
-import "./testHelpers";
-
 // This mocks Home.tsx and returns <div>Home</div> in its place.
 jest.mock("./Home", () => ({ Home: () => <div>Home</div>}));
 jest.mock("./Cart", () => ({ Cart: () => <div>Cart</div>}));

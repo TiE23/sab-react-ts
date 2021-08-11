@@ -2,10 +2,6 @@ import React from "react";
 import { CartWidget } from './CartWidget'
 import { fireEvent } from "@testing-library/react";
 
-// Be aware. If tests don't run there might be a sneaky issue at play. For
-// example. I forgot a "../" when importing this. So, my tests were all "?".
-import "../../testHelpers";
-
 describe("CartWidget", () => {
   it("shows the amount of products in the cart", () => {
     // This becomes acceptable when we do the magic with Pick<> and ReturnType<>

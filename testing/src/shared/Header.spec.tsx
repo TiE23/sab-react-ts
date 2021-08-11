@@ -7,8 +7,6 @@ import React from "react";
 import { Header } from "./Header";
 import { fireEvent } from "@testing-library/react";
 
-import "../testHelpers";
-
 // We mock this, we don't want to deal with it.
 jest.mock("./CartWidget", () => ({
   CartWidget: () => <div>Cart widget</div>,
