@@ -22,3 +22,24 @@ code {
 *::before {
   box-sizing: border-box;
 }
+
+/* This is necessary to make sure that browsers and OSs render our buttons
+(keys) the same. */
+button {
+  border: none;
+  border-radius: 0;
+
+  margin: 0;
+  padding: 0;
+  width: auto;
+  background: none;
+  appearance: none;
+
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  cursor: pointer;
+
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+}
