@@ -3,10 +3,17 @@ import clsx from "clsx";
 import { NoteType } from "../../domain/note";
 import styles from "./Key.module.css";
 
+/**
+ * Another example of using types that aren't necessary but make things look nice.
+ */
+type PressCallback = () => void;
 type KeyProps = {
   type: NoteType,
   label: string,
   disabled?: boolean,
+
+  onUp: PressCallback,
+  onDown: PressCallback,
 };
 
 /**
@@ -24,10 +31,12 @@ type KeyProps = {
  */
 export const Key: FunctionComponent<KeyProps> = (props) => {
   // Man, I swear, I've never used spread destructuring like this. Neat.
-  const { type, label, ...rest } = props;
+  const { type, label, onUp, onDown, ...rest } = props;
   return (
     <button
       className={clsx(styles.key, styles[type])}
+      onMouseUp={onUp}
+      onMouseDown={onDown}
       type="button"
       {...rest}
     >
