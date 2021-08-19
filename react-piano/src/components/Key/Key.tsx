@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import { usePressObserver } from "../PressObserver";
 import clsx from "clsx";
 import { NoteType } from "../../domain/note";
 import styles from "./Key.module.css";
@@ -32,9 +33,16 @@ type KeyProps = {
 export const Key: FunctionComponent<KeyProps> = (props) => {
   // Man, I swear, I've never used spread destructuring like this. Neat.
   const { type, label, onUp, onDown, ...rest } = props;
+
+  const pressed = usePressObserver({
+    watchKey: label,
+    onStartPress: onDown,
+    onFinishPress: onUp
+  });
+
   return (
     <button
-      className={clsx(styles.key, styles[type])}
+      className={clsx(styles.key, styles[type], pressed && styles["is-pressed"])}
       onMouseUp={onUp}
       onMouseDown={onDown}
       type="button"
