@@ -1,4 +1,5 @@
 import { EffectCallback, useEffect } from "react";
+import { InstrumentName } from "soundfont-player";
 
 /**
  * "First, we create a useEffectOnce() hook to encapsulate the useEffect() call
@@ -20,7 +21,8 @@ const useEffectOnce = (effect: EffectCallback) => {
  * example, it accepts class declarations that can throw an error if called
  * incorrectly."
  */
-type Effect = (...args: unknown[]) => void;
+// type Effect = (...args: unknown[]) => void;
+type Effect = (instrument?: InstrumentName | undefined) => Promise<void>;
 
 export const useMount = (fn: Effect) => {
   useEffectOnce(() => {

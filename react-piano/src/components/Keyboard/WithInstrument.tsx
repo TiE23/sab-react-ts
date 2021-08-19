@@ -8,28 +8,12 @@ export const KeyboardWithInstrument = () => {
   // The use of ! at the end to tell the TypeChecker that it won't be null.
   // We're sure because we won't render this component unless we have audio
   // context -- that the browser supports it.
-  const audioContext = useAudioContext()!;
+  const AudioContext = useAudioContext()!;
   const { loading, play, stop, load } = useSoundFont({ AudioContext });
 
   // Allows us to run some code right after a component is mounted into the DOM.
-  useMount(load); // Come back to this...
+  useMount(load);
+
 
   return <Keyboard loading={loading} play={play} stop={stop} />;
 };
-
-// export const KeyboardWithInstrument = () => {
-//   // The use of ! at the end to tell the TypeChecker that it won't be null.
-//   // We're sure because we won't render this component unless we have audio
-//   // context -- that the browser supports it.
-//   const audioContext = useAudioContext()!;
-//   const { instrument } = useInstrument();
-//   const { loading, current, play, stop, load } = useSoundfont({
-//     AudioContext
-//   })
-
-//   useEffect(() => {
-//     if (!loading && instrument !== current) load(instrument)
-//   }, [load, loading, current, instrument])
-
-//   return <Keyboard loading={loading} play={play} stop={stop} />
-// }

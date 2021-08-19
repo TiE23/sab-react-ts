@@ -50,6 +50,7 @@ export function useSoundFont({ AudioContext }: Settings): Adapted {
       audio.current,
       instrument,
     );
+    console.log('loaded');
 
     setLoading(false);
     setCurrent(instrument);
