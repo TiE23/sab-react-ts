@@ -1,8 +1,25 @@
 import { useInstrument } from "../../state/Instrument";
 import { useAudioContext } from "../AudioContextProvider";
 import { Keyboard } from "../Keyboard";
-// import { SoundfontProvider } from "../../adapters/Soundfont/SoundfontProvider";
-import { SoundfontProvider } from "../../adapters/Soundfont/SoundfontProviderClass";
+import { withInstrument } from "../../adapters/Soundfont/withInstrument";
+
+const WrappedKeyboard = withInstrument(Keyboard);
+
+export const KeyboardWithInstrument = () => {
+  const AudioContext = useAudioContext()!;
+  const { instrument } = useInstrument();
+
+  return (
+    <WrappedKeyboard
+      AudioContext={AudioContext}
+      instrument={instrument}
+    />
+  );
+};
+
+/*
+ import { SoundfontProvider } from "../../adapters/Soundfont/SoundfontProvider";
+// import { SoundfontProvider } from "../../adapters/Soundfont/SoundfontProviderClass";
 
 // Render props
 export const KeyboardWithInstrument = () => {
@@ -17,6 +34,7 @@ export const KeyboardWithInstrument = () => {
     />
   );
 };
+*/
 
 /* // Code before Render Props
 import { useEffect } from "react";
