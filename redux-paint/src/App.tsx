@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { beginStroke, endStroke, updateStroke } from './actions';
 import { drawStroke, setCanvasSize, clearCanvas } from './canvasUtils';
+import { ColorPanel } from './ColorPanel';
 import { currentStrokeSelector } from "./selectors";
 
 const WIDTH = 1024
@@ -78,6 +79,7 @@ function App() {
           <button aria-label="Close" />
         </div>
       </div>
+      <ColorPanel />
       <canvas
         onMouseDown={startDrawing}
         onMouseUp={endDrawing}
