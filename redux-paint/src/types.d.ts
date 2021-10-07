@@ -2,7 +2,7 @@
 export type RootState = {
   currentStroke: Stroke,
   strokes: Stroke[],
-  // historyIndex: number,
+  historyIndex: number,
 };
 
 export type Stroke = {

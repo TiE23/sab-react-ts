@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { beginStroke, endStroke, updateStroke } from './actions';
 import { drawStroke, setCanvasSize, clearCanvas } from './canvasUtils';
 import { ColorPanel } from './ColorPanel';
-import { currentStrokeSelector } from "./selectors";
+import { EditPanel } from './EditPanel';
+import { currentStrokeSelector, strokesSelector, historyIndexSelector } from "./selectors";
 
 const WIDTH = 1024
 const HEIGHT = 768
@@ -12,6 +13,8 @@ function App() {
   const dispatch = useDispatch();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const currentStroke = useSelector(currentStrokeSelector);
+  const strokes = useSelector(strokesSelector);
+  const historyIndex = useSelector(historyIndexSelector);
   const isDrawing = !!currentStroke.points.length;
 
   const getCanvasWithContext = (canvas = canvasRef.current) => {
@@ -55,6 +58,7 @@ function App() {
     ));
   }, [currentStroke]);
 
+  // Every (?) redraw the canvas is re-created.
   useEffect(() => {
     const { canvas, context } = getCanvasWithContext();
     if (!canvas || !context) {
@@ -71,6 +75,21 @@ function App() {
     clearCanvas(canvas);
   }, []);
 
+  useEffect(() => {
+    const { canvas, context } = getCanvasWithContext();
+    if (!canvas || !context) {
+      return;
+    }
+    requestAnimationFrame(() => {
+      clearCanvas(canvas);
+
+      strokes.slice(0, strokes.length - historyIndex).forEach((stroke) =>
+        drawStroke(context, stroke.points, stroke.color)
+      );
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [historyIndex]);
+
   return (
     <div className="window">
       <div className="title-bar">
@@ -79,6 +98,7 @@ function App() {
           <button aria-label="Close" />
         </div>
       </div>
+      <EditPanel />
       <ColorPanel />
       <canvas
         onMouseDown={startDrawing}

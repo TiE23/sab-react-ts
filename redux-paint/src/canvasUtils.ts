@@ -19,6 +19,7 @@ export const drawStroke = (
   context.closePath();
 };
 
+// Clears the canvas we set the fill color to white and draw the canvas rectangle.
 export const clearCanvas = (canvas: HTMLCanvasElement) => {
   const context = canvas.getContext("2d");
   if (!context) {
