@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { drawStroke, setCanvasSize, clearCanvas } from './canvasUtils';
-import { ColorPanel } from './ColorPanel';
-import { EditPanel } from './EditPanel';
+import { ColorPanel } from './shared/ColorPanel';
+import { EditPanel } from './shared/EditPanel';
 
 import { currentStrokeSelector } from './modules/currentStroke/selector';
 import { strokesSelector } from './modules/strokes/selector';
