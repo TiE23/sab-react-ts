@@ -1,28 +1,31 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { drawStroke, setCanvasSize, clearCanvas } from './canvasUtils';
 import { ColorPanel } from './shared/ColorPanel';
 import { EditPanel } from './shared/EditPanel';
+import { useCanvas } from './CanvasContext';
 
 import { currentStrokeSelector } from './modules/currentStroke/selector';
 import { strokesSelector } from './modules/strokes/selector';
 import { historyIndexSelector } from './modules/historyIndex/selector';
 import { beginStroke, endStroke, updateStroke } from './modules/currentStroke/actions';
+import { FilePanel } from './shared/FilePanel';
 
 const WIDTH = 1024
 const HEIGHT = 768
 
 function App() {
   const dispatch = useDispatch();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  // const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useCanvas();
   const currentStroke = useSelector(currentStrokeSelector);
   const strokes = useSelector(strokesSelector);
   const historyIndex = useSelector(historyIndexSelector);
   const isDrawing = !!currentStroke.points.length;
 
-  const getCanvasWithContext = (canvas = canvasRef.current) => {
+  const getCanvasWithContext = useCallback((canvas = canvasRef.current) => {
     return { canvas, context: canvas?.getContext("2d") };
-  };
+  }, [canvasRef]);
 
   const startDrawing = ({
     nativeEvent,
@@ -59,7 +62,7 @@ function App() {
       currentStroke.points,
       currentStroke.color,
     ));
-  }, [currentStroke]);
+  }, [currentStroke, getCanvasWithContext]);
 
   // Every (?) redraw the canvas is re-created.
   useEffect(() => {
@@ -76,7 +79,7 @@ function App() {
     context.strokeStyle = "black";
 
     clearCanvas(canvas);
-  }, []);
+  }, [getCanvasWithContext]);
 
   useEffect(() => {
     const { canvas, context } = getCanvasWithContext();
@@ -90,8 +93,7 @@ function App() {
         drawStroke(context, stroke.points, stroke.color)
       );
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [historyIndex]);
+  }, [getCanvasWithContext, historyIndex, strokes]);
 
   return (
     <div className="window">
@@ -103,6 +105,7 @@ function App() {
       </div>
       <EditPanel />
       <ColorPanel />
+      <FilePanel />
       <canvas
         onMouseDown={startDrawing}
         onMouseUp={endDrawing}
