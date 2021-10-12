@@ -38,7 +38,7 @@ export const FilePanel = () => {
           <button
             className="save-button"
             onClick={() => {
-              dispatch(show("PROJECTS_SAVE_MODAL"))
+              dispatch(show("PROJECTS_MODAL"))
             }}
           >
             Load

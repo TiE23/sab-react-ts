@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-// import { ProjectsModal } from "./ProjectsModal";
+import { ProjectsModal } from "./ProjectsModal";
 import { ProjectSaveModal } from "./ProjectSaveModal";
 import { modalNameSelector } from "./modules/modals/selectors";
 
@@ -9,8 +9,7 @@ export const ModalLayer = () => {
 
   switch (modalName) {
     case "PROJECTS_MODAL": {
-      // return <ProjectsModal />;
-      return null;
+      return <ProjectsModal />;
     }
     case "PROJECTS_SAVE_MODAL": {
       return <ProjectSaveModal />;

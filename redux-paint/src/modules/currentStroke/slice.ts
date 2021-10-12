@@ -34,23 +34,3 @@ export const currentStroke = createSlice({
 export default currentStroke.reducer;
 
 export const { beginStroke, updateStroke, setStrokeColor } = currentStroke.actions;
-
-/*
-import {
-  beginStroke,
-  updateStroke,.y.
-export const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(beginStroke, (state, action) => {
-    state.points = [action.payload];
-  });
-  builder.addCase(updateStroke, (state, action) => {
-    state.points.push(action.payload);
-  });
-  builder.addCase(setStrokeColor, (state, action) => {
-    state.color = action.payload;
-  });
-  builder.addCase(endStroke, (state, _action) => {
-    state.points = [];
-  });
-});
-*/

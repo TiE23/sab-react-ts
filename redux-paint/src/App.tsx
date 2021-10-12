@@ -19,7 +19,6 @@ const HEIGHT = 768
 
 function App() {
   const dispatch = useDispatch();
-  // const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasRef = useCanvas();
   const currentStroke = useSelector(currentStrokeSelector);
   const strokes = useSelector(strokesSelector);

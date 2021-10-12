@@ -1,3 +1,4 @@
+// The Thunk!
 import { AppThunk } from "../../store";
 import { newProject } from "./api";
 
@@ -15,6 +16,8 @@ export const saveProject = (
   } catch (e: unknown) {
     if (e instanceof Error) {
       console.log(e.message);
+    } else {
+      console.log('Unknown issue occured in saveProject()');
     }
   }
 }

@@ -15,4 +15,8 @@ export const newProject = (
     strokes,
     image,
   }),
-}).then((res) => res.json());
+}).then(res => res.json());
+
+export const getProject = (projectId: string) => fetch(
+  `http://localhost:4000/projects/${projectId}`
+).then(res => res.json())

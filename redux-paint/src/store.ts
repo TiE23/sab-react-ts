@@ -3,6 +3,7 @@ import historyIndex from "./modules/historyIndex/slice";
 import currentStroke from "./modules/currentStroke/slice";
 import strokes from "./modules/strokes/slice";
 import { modalVisible } from "./modules/modals/slice";
+import { projectsList } from "./modules/projectsList/slice";
 import { logger } from "redux-logger";
 import { RootState } from "./utils/types";
 
@@ -12,6 +13,7 @@ export const store = configureStore({
     currentStroke,
     strokes,
     modalVisible,
+    projectsList,
   }),
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), logger],
 });
