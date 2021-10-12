@@ -8,7 +8,7 @@ import { useCanvas } from './CanvasContext';
 import { currentStrokeSelector } from './modules/currentStroke/selector';
 import { strokesSelector } from './modules/strokes/selector';
 import { historyIndexSelector } from './modules/historyIndex/selector';
-import { beginStroke, endStroke, updateStroke } from './modules/currentStroke/actions';
+import { beginStroke, endStroke, updateStroke } from './actions';
 import { FilePanel } from './shared/FilePanel';
 
 const WIDTH = 1024
@@ -31,12 +31,12 @@ function App() {
     nativeEvent,
   }: React.MouseEvent<HTMLCanvasElement>) => {
     const {offsetX, offsetY } = nativeEvent;
-    dispatch(beginStroke(offsetX, offsetY));
+    dispatch(beginStroke({x: offsetX, y: offsetY}));
   };
 
   const endDrawing = () => {
     if (isDrawing) {
-      dispatch(endStroke(historyIndex, currentStroke));
+      dispatch(endStroke({stroke: currentStroke, historyIndex}));
     }
   };
 
@@ -47,7 +47,7 @@ function App() {
       return; // If the mouse isn't down we do nothing!
     }
     const { offsetX, offsetY } = nativeEvent;
-    dispatch(updateStroke(offsetX, offsetY));
+    dispatch(updateStroke({x: offsetX, y: offsetY}));
   };
 
   // Every time the currentStroke is updated we animate (draw on) the canvas.
