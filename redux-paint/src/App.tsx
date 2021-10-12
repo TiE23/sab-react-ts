@@ -8,7 +8,8 @@ import { useCanvas } from './CanvasContext';
 import { currentStrokeSelector } from './modules/currentStroke/selector';
 import { strokesSelector } from './modules/strokes/selector';
 import { historyIndexSelector } from './modules/historyIndex/selector';
-import { beginStroke, endStroke, updateStroke } from './actions';
+import { beginStroke, updateStroke } from './modules/currentStroke/slice';
+import { endStroke } from './modules/sharedActions';
 import { FilePanel } from './shared/FilePanel';
 
 const WIDTH = 1024
