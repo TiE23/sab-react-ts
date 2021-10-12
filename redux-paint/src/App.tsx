@@ -1,16 +1,18 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { drawStroke, setCanvasSize, clearCanvas } from './canvasUtils';
-import { ColorPanel } from './shared/ColorPanel';
-import { EditPanel } from './shared/EditPanel';
-import { useCanvas } from './CanvasContext';
 
+import { drawStroke, setCanvasSize, clearCanvas } from './utils/canvasUtils';
 import { currentStrokeSelector } from './modules/currentStroke/selector';
 import { strokesSelector } from './modules/strokes/selector';
 import { historyIndexSelector } from './modules/historyIndex/selector';
 import { beginStroke, updateStroke } from './modules/currentStroke/slice';
 import { endStroke } from './modules/sharedActions';
+
+import { ColorPanel } from './shared/ColorPanel';
+import { EditPanel } from './shared/EditPanel';
+import { useCanvas } from './CanvasContext';
 import { FilePanel } from './shared/FilePanel';
+import { ModalLayer } from './ModalLayer';
 
 const WIDTH = 1024
 const HEIGHT = 768
@@ -104,6 +106,7 @@ function App() {
           <button aria-label="Close" />
         </div>
       </div>
+      <ModalLayer />
       <EditPanel />
       <ColorPanel />
       <FilePanel />

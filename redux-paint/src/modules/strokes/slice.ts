@@ -1,4 +1,4 @@
-import { RootState } from "../../types";
+import { RootState } from "../../utils/types";
 import { createSlice } from "@reduxjs/toolkit";
 import { endStroke } from "../sharedActions";
 
