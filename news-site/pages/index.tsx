@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import { Feed } from "../components/Feed";
 
 // Next requires that page components use default export.
 export default function Front() {
@@ -10,7 +11,9 @@ export default function Front() {
       <Head>
         <title>Front page of the Internet</title>
       </Head>
-      <main>Hello world from Next!</main>
+      <main>
+        <Feed />
+      </main>
     </>
   )
 }
