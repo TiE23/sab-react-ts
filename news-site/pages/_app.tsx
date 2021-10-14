@@ -37,6 +37,7 @@ export default function MyApp({ Component, pageProps }) {
       <Head>
         <title>What's Next?!</title>
       </Head>
+
       <Header />
       <main className="main">
         <Center>

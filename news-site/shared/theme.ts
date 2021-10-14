@@ -13,6 +13,7 @@ export const theme = {
 };
 
 export type MainThemeProps = ThemeProps<typeof theme>;
+
 export const GlobalStyle = createGlobalStyle<MainThemeProps>`
   body {
     margin: 0;

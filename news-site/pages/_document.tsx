@@ -71,9 +71,11 @@ export default class MyDocument extends Document {
        *
        * Lastly, seal() is used for garbage collection.
        */
-      ctx.renderPage = () => originalRenderPage({
-        enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
-      });
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
+        });
 
       const initialProps = await Document.getInitialProps(ctx);
 
@@ -113,6 +115,7 @@ export default class MyDocument extends Document {
         <Head>
           <meta name="description" content={description} />
           <link href={fontsUrl} rel="stylesheet" />
+          {this.props.styles}
         </Head>
 
         <body>
