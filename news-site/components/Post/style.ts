@@ -35,11 +35,11 @@ export const Figure = styled.figure`
 `;
 
 export const Title = styled.h3`
-  margin: 10px 2px;
+  margin: 10px 20px;
   font-size: 1.4rem;
 `;
 
-export const Content = styled.div`
+export const Lead = styled.div`
   margin: 0px 20px 20px;
   & > * {
     margin: 0 0 10px;
