@@ -1,5 +1,5 @@
 import { Post as PostType } from "../../shared/types";
-import { Post } from "../Post";
+import { PostCard } from "../Post";
 import { Grid, Title } from "./style";
 
 type SectionProps = {
@@ -13,7 +13,7 @@ export const Section = ({ title, posts }: SectionProps) => {
       <Title>{title}</Title>
       <Grid>
         {posts.map((post) =>
-          <Post key={post.id} post={post} />
+          <PostCard key={post.id} post={post} />
         )}
       </Grid>
     </section>
