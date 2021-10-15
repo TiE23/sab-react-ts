@@ -19,8 +19,10 @@ export const PostBody = ({ post }: PostBodyProps) => {
         <span>{post.date}</span>
         <span>&middot;</span>
         <Link href={`/category/${post.category}`}>
-          <a>{post.source}</a>
+          <a>{post.category}</a>
         </Link>
+        <span>&middot;</span>
+        <a href={post.source}>Source</a>
       </Meta>
     </div>
   );
