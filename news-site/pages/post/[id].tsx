@@ -4,19 +4,24 @@
  * we should add brackets this page filename.
  */
 
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { useRouter} from "next/router";
 import { fetchPost } from "../../api/post";
-import { Post as PostType } from "../../shared/types";
+import { fetchComments } from "../../api/comments";
+
 import { Loader } from "../../components/Loader";
-import { postPaths as paths } from "../../shared/staticPaths";
 import { PostBody } from "../../components/Post/PostBody";
+import { Comments } from "../../components/Comments";
+
+import { Comment, Post as PostType } from "../../shared/types";
 
 type PostProps = {
   post: PostType,
+  comments: Comment[],
 };
 
-// Pre-rendered pages pretty much require this function.
+/*
+// Pre-rendered (SSG) pages require this function.
 // -> https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export const getStaticProps: GetStaticProps<PostProps> = async ({
   params, // This is a context argument we're destructuring. See docs above.
@@ -28,6 +33,7 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({
 
   // This is how we get the `post` prop for the component below!
   const post = await fetchPost(params.id);
+  const comments = await fetchComments(params.id);
   return { props: { post } };
 };
 
@@ -36,8 +42,22 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({
 export async function getStaticPaths() {
   return { paths, fallback: true };
 }
+*/
 
-const Post = ({ post }: PostProps) => {
+// Pre-rendered (SSR) pages require this function.
+// We removed getStaticProps AND getStaticPaths both to introduce this one.
+// SSR is necessary because we have dynamic comments!
+export const getServerSideProps: GetServerSideProps<PostProps> = async ({
+  params,
+}) => {
+  if (typeof params.id !== "string") throw new Error("Unexpected id");
+  const post = await fetchPost(params.id);
+  const comments = await fetchComments(params.id);
+  return { props: { post, comments } };
+
+};
+
+const Post = ({ post, comments }: PostProps) => {
   /**
    * This is a Hook.
    * -> pathname - current route, the path of the page in pages directory.
@@ -51,7 +71,12 @@ const Post = ({ post }: PostProps) => {
   // If the route hasn't been pre-rendered we show Loader instead.
   if (router.isFallback) return <Loader />;
 
-  return <PostBody post={post} />;
+  return (
+    <>
+      <PostBody post={post} />
+      <Comments comments={comments} post={post.id} />
+    </>
+  );
 };
 
 export default Post;
