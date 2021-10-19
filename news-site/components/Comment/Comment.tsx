@@ -1,3 +1,4 @@
+import React from "react";
 import { Comment as CommentType } from "../../shared/types";
 import { Container, Author, Body, Meta } from "./style";
 

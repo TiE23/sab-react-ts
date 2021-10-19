@@ -4,16 +4,14 @@ export const Card = styled.a`
   border-radius: 6px;
   overflow: hidden;
   background-color: #fff;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.035),
-    0 4px 25px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.035), 0 4px 25px rgba(0, 0, 0, 0.07);
   color: black;
   text-decoration: none;
   transition: all 0.2s;
 
   &:hover {
     color: black;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.035),
-      0 6px 35px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.035), 0 6px 35px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
   }
 `;
@@ -40,7 +38,8 @@ export const Title = styled.h3`
 `;
 
 export const Lead = styled.div`
-  margin: 0px 20px 20px;
+  margin: 0 20px 20px;
+
   & > * {
     margin: 0 0 10px;
   }

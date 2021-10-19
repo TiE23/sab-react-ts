@@ -4,24 +4,24 @@ import { Post, Category } from "../../shared/types";
 type FeedProps = {
   posts: Post[],
   categories: Category[],
-}
+};
 
 export const Feed = ({ posts, categories }: FeedProps) => {
   return (
     <>
-      {categories.map((currentCategory) => {
+      {categories.map((category) => {
         const inSection = posts.filter(
-          (post) => post.category === currentCategory,
+          (post) => post.category === category
         );
 
         return (
           <Section
-            key={currentCategory}
-            title={currentCategory}
+            key={category}
+            title={category}
             posts={inSection}
             isCompact
           />
-        );
+        )
       })}
     </>
   );

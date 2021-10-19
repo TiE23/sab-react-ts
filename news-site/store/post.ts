@@ -1,9 +1,6 @@
-/**
- * This file combines actions and reducers in one file, just FYI.
- */
 import { AnyAction } from "redux";
 import { HYDRATE } from "next-redux-wrapper";
-import { Optional, Post } from "../shared/types";
+import { Post, Optional } from "../shared/types";
 import { HydrateAction } from "./hydrate";
 
 export const UPDATE_POST_ACTION = "UPDATE_POST";

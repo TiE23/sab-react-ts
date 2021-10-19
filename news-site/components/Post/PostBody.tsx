@@ -28,4 +28,4 @@ export const PostBody = ({ post }: PostBodyProps) => {
       </Meta>
     </div>
   );
-}
+};

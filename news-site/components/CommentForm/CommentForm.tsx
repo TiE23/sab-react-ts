@@ -1,9 +1,9 @@
-import { useState, FormEvent } from "react";
-import { EntityId } from "../../shared/types";
-import { Form } from "./style";
-import { submitComment } from "../../api/comments";
+import React, { useState, FormEvent } from "react";
 import { useDispatch } from "react-redux";
+import { EntityId } from "../../shared/types";
+import { submitComment } from "../../api/comments";
 import { UPDATE_COMMENTS_ACTION } from "../../store/comments";
+import { Form } from "./style";
 
 type CommentFormProps = {
   post: EntityId,
@@ -13,7 +13,6 @@ export const CommentForm: React.FC<CommentFormProps> = ({ post }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
   const [name, setName] = useState<string>("");
-
   const dispatch = useDispatch();
 
   async function submit(e: FormEvent<HTMLFormElement>) {
@@ -21,15 +20,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ post }) => {
     setLoading(true);
 
     const response = await submitComment(post, name, value);
-    let comments = [];
-    try {
-      comments = await response.json() as any[];
-    } catch (e) {
-      if (e instanceof Error) {
-        console.log('Error!', e);
-      }
-      comments = [];
-    }
+    const comments = await response.json();
     setLoading(false);
     setValue("");
     setName("");
@@ -59,5 +50,5 @@ export const CommentForm: React.FC<CommentFormProps> = ({ post }) => {
       />
       {loading ? <span>Submitting...</span> : <button>Submit</button>}
     </Form>
-  )
+  );
 };

@@ -9,14 +9,18 @@ type SectionProps = {
   isCompact?: boolean,
 };
 
-export const Section = ({ title, posts, isCompact = false }: SectionProps) => {
+export const Section = ({
+  title,
+  posts,
+  isCompact = false,
+}: SectionProps) => {
   return (
     <section>
       <Title>{title}</Title>
       <Grid>
-        {posts.map((post) =>
+        {posts.map((post) => (
           <PostCard key={post.id} post={post} />
-        )}
+        ))}
       </Grid>
       {isCompact && (
         <Link href={`/category/${title}`} passHref>
@@ -24,5 +28,5 @@ export const Section = ({ title, posts, isCompact = false }: SectionProps) => {
         </Link>
       )}
     </section>
-  )
+  );
 };

@@ -1,10 +1,10 @@
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
+import { categoryPaths as paths} from "../../shared/staticPaths";
 import { Post } from "../../shared/types";
 import { fetchPosts } from "../../api/category";
 import { Section } from "../../components/Section";
 import { Loader } from "../../components/Loader";
-import { categoryPaths as paths } from "../../shared/staticPaths";
 
 type CategoryProps = {
   posts: Post[],
@@ -13,10 +13,7 @@ type CategoryProps = {
 export const getStaticProps: GetStaticProps<CategoryProps> = async ({
   params,
 }) => {
-  if (typeof params.id !== "string") {
-    throw new Error("Unexpected id");
-  }
-
+  if (typeof params.id !== "string") throw new Error("Unexpected id");
   const posts = await fetchPosts(params.id);
   return { props: { posts } };
 };

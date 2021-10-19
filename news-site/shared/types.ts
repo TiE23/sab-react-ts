@@ -1,5 +1,3 @@
-// We use type aliases to create more readable types, that can better describe
-// the intent of our code.
 export type UriString = string;
 export type UniqueString = string;
 export type EntityId = number | UniqueString;
