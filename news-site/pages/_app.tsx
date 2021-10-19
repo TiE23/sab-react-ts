@@ -23,14 +23,17 @@
  */
 import React from "react";
 import Head from "next/head";
+import { AppContext } from "next/app";
 import { ThemeProvider } from "styled-components";
 
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer/Footer";
 import { Center } from "../components/Center";
-import { GlobalStyle, theme } from "../shared/theme";
 
-export default function MyApp({ Component, pageProps }) {
+import { GlobalStyle, theme } from "../shared/theme";
+import { wrapper } from "../store";
+
+const MyApp = ({ Component, pageProps }) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle theme={theme} />
@@ -47,4 +50,20 @@ export default function MyApp({ Component, pageProps }) {
       <Footer />
     </ThemeProvider>
   );
-}
+};
+
+/**
+ * This is required to correctly collect the data from the store. It is static.
+ *  -> https://github.com/kirill-konshin/next-redux-wrapper#app-and-getserversideprops-or-getstaticprops-at-page-level
+ */
+MyApp.getInitialProps = async ({ Component, ctx }: AppContext) => {
+  return {
+    // pageProps is a standard name for the props our MyApp gets above.
+    pageProps: {
+      ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {})
+    },
+  }
+};
+
+// Wrapper from our store to allow for SSR with hydration 'n' such.
+export default wrapper.withRedux(MyApp);

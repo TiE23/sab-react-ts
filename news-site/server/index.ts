@@ -30,18 +30,6 @@ app.get("/posts/:id", (req, res) => {
   return res.json(post);
 });
 
-app.post("/posts/:id/comments", (req, res) => {
-  const postId = Number(req.params.id);
-  comments.push({
-    id: comments.length + 1,
-    author: req.body.name,
-    content: req.body.comment,
-    post: postId,
-    time: "Less than a minute ago",
-  });
-  return res.sendStatus(201);
-});
-
 app.get("/categories", (_, res) => {
   return res.json(categories);
 });
@@ -59,6 +47,20 @@ app.get("/comments/:post", (req, res) => {
   return res.json(found);
 });
 
+app.post("/posts/:id/comments", (req, res) => {
+  const postId = Number(req.params.id);
+  comments.push({
+    id: comments.length + 1,
+    author: req.body.name,
+    content: req.body.comment,
+    post: postId,
+    time: "Less than a minute ago",
+  });
+  // return res.json(comments.filter(({ post }) => post === postId));
+  const responseJson = res.json(comments.filter(({ post }) => post === postId));
+  console.log(responseJson);
+  return responseJson;
+});
 
 // Start listening...
 app.listen(port, () => {
