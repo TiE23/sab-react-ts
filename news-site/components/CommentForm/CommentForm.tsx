@@ -21,7 +21,15 @@ export const CommentForm: React.FC<CommentFormProps> = ({ post }) => {
     setLoading(true);
 
     const response = await submitComment(post, name, value);
-    const comments = await response.json();
+    let comments = [];
+    try {
+      comments = await response.json() as any[];
+    } catch (e) {
+      if (e instanceof Error) {
+        console.log('Error!', e);
+      }
+      comments = [];
+    }
     setLoading(false);
     setValue("");
     setName("");

@@ -56,10 +56,7 @@ app.post("/posts/:id/comments", (req, res) => {
     post: postId,
     time: "Less than a minute ago",
   });
-  // return res.json(comments.filter(({ post }) => post === postId));
-  const responseJson = res.json(comments.filter(({ post }) => post === postId));
-  console.log(responseJson);
-  return responseJson;
+  return res.json(comments.filter(({ post }) => post === postId));
 });
 
 // Start listening...
