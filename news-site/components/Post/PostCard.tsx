@@ -8,6 +8,7 @@ type PostProps = {
 
 export const PostCard = ({ post }: PostProps) => {
   return (
+    // passHref is necessary because we don't give <Link> an <a> element.
     <Link href={`/post/${post.id}`} passHref>
       <Card>
         <Figure>

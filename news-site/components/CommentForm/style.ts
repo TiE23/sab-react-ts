@@ -16,7 +16,7 @@ export const Form = styled.form`
 
   button {
     border: 0;
-    font-size: 1rem;
+    font-size: 1rem;  /* Interesting difference of rem vs em */
     padding: 8px 20px;
     border-radius: 6px;
     background-color: #fff;

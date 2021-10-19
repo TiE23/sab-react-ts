@@ -1,3 +1,9 @@
+/**
+ * To create a page that is responsible for a path with a dynamtic route segment
+ *  -> https://nextjs.org/docs/routing/dynamic-routes
+ * we should add brackets this page filename.
+ */
+
 import React from "react";
 import { NextPage } from "next";
 import { useSelector } from "react-redux";
