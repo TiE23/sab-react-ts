@@ -7,6 +7,10 @@ import { useQuery } from "react-apollo-hooks"
 import { listIssues } from "./types/listIssues"
 import { List } from "../List"
 
+/**
+ * Can see that GitHub API uses node and edge style. Never quite got why they
+ * need to use nodes but eh, there you go.
+ */
 const LIST_ISSUES = gql`
   query listIssues {
     viewer {
@@ -19,6 +23,12 @@ const LIST_ISSUES = gql`
     }
   }
 `
+
+/**
+ * Interesting thing about these components is that there's no loading indicator
+ * or error handling. Figure he just skipped them because they load so quickly.
+ * @returns Component
+ */
 export const ListIssues = () => {
   const { loading, error, data } = useQuery<listIssues>(LIST_ISSUES, {
     notifyOnNetworkStatusChange: true,

@@ -35,6 +35,10 @@ export const NewIssue = () => {
     issue,
     setIssue
   ] = useState<createNewIssue_createIssue_issue | null>()
+
+  /**
+   * The useMutation hook, we call this later to perform the actual mutation.
+   */
   const [createIssue] = useMutation<
     createNewIssue,
     createNewIssueVariables
@@ -46,6 +50,10 @@ export const NewIssue = () => {
     const [repo, title, body] = values.textbox
     const [owner, name] = repo.split("/")
 
+    /**
+     * First we grab the repository using the operator we import from the shared
+     * queries file.
+     */
     const { data } = await client.query<
       getRepository,
       getRepositoryVariables
@@ -57,6 +65,9 @@ export const NewIssue = () => {
       }
     })
 
+    /**
+     * No error handling or anything. Kinda lame. But eh, it's a lesson.
+     */
     if (!data || !data.repository) {
       return
     }
@@ -72,6 +83,10 @@ export const NewIssue = () => {
     setIssue(result.data?.createIssue?.issue)
   }
 
+  /**
+   * Not using routing to forward you. Instead, just returning a different
+   * component when a new issue is created.
+   */
   if (issue) {
     return <NewIssueSuccess issue={issue} />
   }
