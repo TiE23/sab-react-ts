@@ -19,7 +19,7 @@ export const RepositoriesMain = () => {
         left="center"
         bg="white"
         fg="black"
-        content="Issues"
+        content="Repositories"
       />
 
       <blessed-button

@@ -7,6 +7,7 @@ import { RepositoriesMain } from "./RepositoriesMain"
 export const Repositories = () => {
   const match = useRouteMatch();
 
+  // Remember to use exact path when it comes to the root!
   return (
     <Switch>
       <Route exact path={match.path} component={RepositoriesMain} />

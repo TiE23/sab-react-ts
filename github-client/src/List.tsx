@@ -15,6 +15,12 @@ type ListProps = {
   items: string[]
 }
 
+/**
+ * Interesting to point out that the blessed library isn't really... imported.
+ * I don't really know what's the reasoning behind it all, if it's just laziness
+ * or necessity. But it's weird how the components aren't brought in specifically
+ * and the hints don't really work.
+ */
 export const List = forwardRef<any, ListProps>(
   ({ onAction, items, ...rest }, ref) => {
     return (

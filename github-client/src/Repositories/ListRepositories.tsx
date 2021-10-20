@@ -26,9 +26,13 @@ export const ListRepositories = () => {
     fetchPolicy: "no-cache"
   })
 
+  /**
+   * Pass this ref to the List component so we can focus on it whenever there's
+   * a change in data (AKA, when it loads).
+   */
   const listRef = useRef<any>()
 
-  const issues = data?.viewer.repositories.nodes
+  const repos = data?.viewer.repositories.nodes
 
   useEffect(() => {
     listRef.current.focus()
@@ -40,7 +44,7 @@ export const ListRepositories = () => {
         left="center"
         bg="white"
         fg="black"
-        content="List Repositories"
+        content="List Repositories..."
       />
 
       <List
@@ -48,11 +52,11 @@ export const ListRepositories = () => {
         top={2}
         onAction={(el) =>
           open(
-            issues?.find((issue) => issue?.name === el.content)
+            repos?.find((repo) => repo?.name === el.content)
               ?.url || ""
           )
         }
-        items={issues?.map((issue) => issue?.name || "") || []}
+        items={repos?.map((repo) => repo?.name || "") || []}
       />
     </Panel>
   )
