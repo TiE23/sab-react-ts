@@ -13,6 +13,10 @@ import { getRepository, getRepositoryVariables } from "../queries/types/getRepos
 import { GET_REPOSITORY } from "../queries/getRepository"
 import { NewPullRequestSuccess } from "./NewPullRequestSuccess"
 
+/**
+ * This is similar to how the other tools work, it's just larger than the other
+ * ones.
+ */
 const CREATE_PULL_REQUEST = gql`
   mutation createNewPullRequest(
     $baseRefName: String!
@@ -43,6 +47,7 @@ export const NewPullRequest = () => {
     pullRequest,
     setPullRequest
   ] = useState<createNewPullRequest_createPullRequest_pullRequest | null>()
+
   const [createPullRequest] = useMutation<
     createNewPullRequest,
     createNewPullRequestVariables
@@ -54,6 +59,14 @@ export const NewPullRequest = () => {
     const [repo, title, body, baseRefName, headRefName] = values.textbox
     const [owner, name] = repo.split("/")
 
+    /**
+     * First step is to grab the repository id by using the owner's name and
+     * the name of the repo. Nothing too special. It's just that the ID is
+     * required to make a pull request.
+     * I think, obviously, one way you could make the tool more efficient is to
+     * find the repo's ID and pass it in or (more realistically) keep it in some
+     * Redux central store.
+     */
     const { data } = await client.query<
       getRepository,
       getRepositoryVariables
