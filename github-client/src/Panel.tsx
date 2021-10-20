@@ -10,6 +10,11 @@ type PanelProps = {
   height?: number | string
 }
 
+/**
+ * Always fun to see how you can be creative with how you deal with props.
+ * Destructing spread "...rest" gets all the props from above and then passes
+ * them all wholesale while using the PropsWithChildren type.
+ */
 export const Panel = forwardRef<any, PropsWithChildren<PanelProps>>(
   ({ children, ...rest }, ref) => {
     return (

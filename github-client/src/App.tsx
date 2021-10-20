@@ -20,6 +20,11 @@ export const App = () => {
           Quit: {
             keys: "q"
           },
+          // Added this because I want to.
+          Welcome: {
+            keys: "w",
+            callback: () => history.push("/"),
+          },
           Issues: {
             keys: "i",
             callback: () => history.push("/issues")
