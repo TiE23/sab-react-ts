@@ -35,7 +35,7 @@ export interface createNewIssue {
 }
 
 export interface createNewIssueVariables {
-  title?: string | null;
+  title: string;
   body?: string | null;
-  repository?: string | null;
+  repository: string;
 }

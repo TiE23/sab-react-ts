@@ -15,9 +15,9 @@ import { getRepository, getRepositoryVariables } from "../queries/types/getRepos
 
 const CREATE_ISSUE = gql`
   mutation createNewIssue(
-    $title: String
+    $title: String!   # Updated API states this is required
     $body: String
-    $repository: ID
+    $repository: ID!  # Updated API states this is required
   ) {
     createIssue(
       input: { title: $title, body: $body, repositoryId: $repository }
