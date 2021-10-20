@@ -1,7 +1,6 @@
 import React from "react"
 import { FC } from "react"
 import { TextBox } from "./TextBox"
-import { forwardRef } from "react"
 
 type FieldProps = {
   label: string

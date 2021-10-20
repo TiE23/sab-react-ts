@@ -86,6 +86,10 @@ export const NewPullRequest = () => {
     return <NewPullRequestSuccess pullRequest={pullRequest} />
   }
 
+  /**
+   * Take a look at Form.tsx for notes on how we need to do a hacky method to
+   * support submit functionality correctly.
+   */
   return (
     <Panel top="25%" left="center" height={12}>
       <blessed-text

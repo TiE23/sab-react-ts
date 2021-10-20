@@ -1,5 +1,4 @@
-import React, { FC, useRef } from "react"
-import { useEffect } from "react"
+import React, { FC } from "react"
 
 type TextBoxProps = {
   top?: string | number

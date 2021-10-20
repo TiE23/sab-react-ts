@@ -10,6 +10,12 @@ type NewIssueSuccessProps = {
 export const NewRepositorySuccess:FC<NewIssueSuccessProps> = ({repository}) => {
   const ref = useRef<any>()
 
+  /**
+   * Like other components, we offer keyboard shortcuts by putting this in a
+   * useEffect hook. Other keyboard shortcuts were defined in other specific
+   * ways. To use keys in a component this is the way to do them, by using a ref
+   * for the elements we use.
+   */
   useEffect(() => {
     ref.current.key("o", () => open(repository.url))
   }, [])
